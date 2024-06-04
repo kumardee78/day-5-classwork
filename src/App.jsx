@@ -10,21 +10,20 @@ export default function App() {
   function handleSubmit(e) {
     e.preventDefault();
     if (inputValue.length > 0) {
-
       const obj = {};
       obj.subject = inputValue;
       obj.hour = parseInt(hour);
       setSubjects([...subjects, obj]);
-      
+
       setInputValue("");
       setHour("");
-    } 
-    else {
+    } else {
       alert("Add subject and hour");
     }
   }
   function handleInc(index) {
     let copyArr = [...subjects];
+    console.log(copyArr, index);
     copyArr[index].hour += 1;
     setSubjects(copyArr);
   }
@@ -47,26 +46,28 @@ export default function App() {
 
   return (
     <>
-      <Form
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        hour={hour}
-        setHour={setHour}
-        handleSubmit={handleSubmit}
-      />
-      {
-        subjects.map((item, idx) => {
-          return (
-            <OutPut
-              item={item.subject}
-              hour={item.hour}
-              handleInc={handleInc}
-              handleDec={handleDec}
-              index={idx}
-            />
-          )
-        })
-      }
+      <div className="mx-32 my-16 rounded-2xl shadow-xl bg-[whitesmoke] backdrop-blur-s">
+        <Form
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          hour={hour}
+          setHour={setHour}
+          handleSubmit={handleSubmit}
+        />
+        <div className="pb-4">
+          {subjects.map((item, idx) => {
+            return (
+              <OutPut
+                item={item.subject}
+                hour={item.hour}
+                handleInc={handleInc}
+                handleDec={handleDec}
+                idx={idx}
+              />
+            );
+          })}
+        </div>
+      </div>
     </>
   );
 }
